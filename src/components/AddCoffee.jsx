@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
 
@@ -15,9 +16,34 @@ const AddCoffee = () => {
         const category = form.category.value;
         const details = form.details.value;
         const photo = form.photo.value;
-        
-        const newCoffee = {name, quantity, supplier,taste,category, details, photo};
+
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo };
         console.log(newCoffee);
+
+
+        // send data to the server er jonno 1st fetch
+        fetch('http://localhost:5000/coffee', {   // 1st parameter to link and 2nd parameter method, headers, body
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newCoffee)   // most important part 
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Coffee Added Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                    })
+                    form.reset();
+                }
+            })
+
+
     }
 
 
