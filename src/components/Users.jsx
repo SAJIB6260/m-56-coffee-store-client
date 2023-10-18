@@ -10,19 +10,19 @@ const Users = () => {
 
     const handleDelete = id => {
         // make sure user is confirmed to delete
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://coffee-store-server-580w9go2i-sk-sajibs-projects.vercel.app/user/${id}`, {
             method: "DELETE"
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                console.log('user deleted successfully')
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    console.log('user deleted successfully')
 
-                // remove the user from the UI
-                const remainingUsers = users.filter(user => user._id !== id)
-                setUsers(remainingUsers)
-            }
-        })
+                    // remove the user from the UI
+                    const remainingUsers = users.filter(user => user._id !== id)
+                    setUsers(remainingUsers)
+                }
+            })
 
     }
 

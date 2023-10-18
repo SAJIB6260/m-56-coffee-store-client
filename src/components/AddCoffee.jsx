@@ -22,7 +22,7 @@ const AddCoffee = () => {
 
 
         // send data to the server er jonno 1st fetch
-        fetch('http://localhost:5000/coffee', {   // 1st parameter to link and 2nd parameter method, headers, body
+        fetch('https://coffee-store-server-580w9go2i-sk-sajibs-projects.vercel.app/coffee', {   // 1st parameter to link and 2nd parameter method, headers, body
             method: "POST",
             headers: {
                 "content-type": "application/json"
