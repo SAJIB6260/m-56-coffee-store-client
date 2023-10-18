@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 // firebase er doc theke get start e giye auth niye aste hobe
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
 
@@ -24,11 +24,17 @@ const AuthProvider = ({children}) => {
         return createUserWithEmailAndPassword(auth, email, password)  //eikhane auth ta AuthProvider er  upore ase r email r password ta parameter hise ase.
     }
 
+    const signInUser = (email, password) => {
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
 
     const userInfo = {
         user, // vivinno jayga theke jehetu use korbo tar jonno eikhane pathaia dilam.aro onno jinish ow anbo
         loading,
         createUser,
+        signInUser
     }
 
 

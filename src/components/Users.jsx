@@ -36,6 +36,7 @@ const Users = () => {
                         <tr>
                             <th>Email</th>
                             <th>Creation Time</th>
+                            <th>Last Logged At</th>
                             <th>FAction</th>
                         </tr>
                     </thead>
@@ -45,6 +46,7 @@ const Users = () => {
                             users.map(user => <tr key={user._id}>
                                 <td>{user.email}</td>
                                 <td>{user.creationTime}</td>
+                                <td>{user.lastLoggedAt}</td>
                                 <td>
                                     <button onClick={() => handleDelete(user._id)} className="btn">X</button>
                                 </td>
