@@ -1,12 +1,25 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 
 
-const Users = () => {
+const Users2 = () => {
 
-    const loadedUsers = useLoaderData();
-    const [users, setUsers] = useState(loadedUsers)
+    const { isPending, isError, error, data: users} = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/user');
+            return res.json();
+        }
+    })
+
+    // const [users, setUsers] = useState([])
+
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/user')
+    //     .then(res => res.json())
+    //     .then(data => setUsers(data))
+    // }, [])
+
 
     const handleDelete = id => {
         // make sure user is confirmed to delete
@@ -19,16 +32,25 @@ const Users = () => {
                     console.log('user deleted successfully')
 
                     // remove the user from the UI
-                    const remainingUsers = users.filter(user => user._id !== id)
-                    setUsers(remainingUsers)
+                    // const remainingUsers = users.filter(user => user._id !== id)
+                    // setUsers(remainingUsers)
                 }
             })
 
     }
 
+    if(isPending){
+        return <span className="loading loading-spinner text-primary"></span>
+    }
+
+    if(isError){
+        return <p>{error.message}</p>
+    }
+
+
     return (
         <div>
-            <h2>Users : {loadedUsers.length}</h2>
+            {/* <h2>Users : {loadedUsers.length}</h2> */}
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -43,7 +65,7 @@ const Users = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            users.map(user => <tr key={user._id}>
+                            users?.map(user => <tr key={user._id}>
                                 <td>{user.email}</td>
                                 <td>{user.creationTime}</td>
                                 <td>{user.lastLoggedAt}</td>
@@ -60,4 +82,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Users2;

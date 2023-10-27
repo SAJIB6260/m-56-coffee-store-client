@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 
 const SignIn = () => {
@@ -20,8 +21,16 @@ const SignIn = () => {
                 email,
                 lastLoggedAt : result.user?.metadata?.lastSignInTime
             }
+
+            // using axios
+            axios.patch('http://localhost:5000/user', user)
+            .then(data => {
+                console.log(data.data);
+            })
+
+
             //update last loggeat in  the database
-            fetch('https://coffee-store-server-580w9go2i-sk-sajibs-projects.vercel.app/user', {
+            fetch('http://localhost:5000/user', {
                 method: "PATCH",
                 headers: {
                     "content-type" : "application/json"
